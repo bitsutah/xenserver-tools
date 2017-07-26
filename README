@@ -22,8 +22,8 @@ for each vm
 	xe vm-install     Make template into temp VM
 	xe vif-list       List all NICs on temp VM
 	for each NIC
-    xe vif-destroy
-  xe vm-param-set   Remove host affinity from temp VM
+          xe vif-destroy
+          xe vm-param-set   Remove host affinity from temp VM
   xe snapshot-uninstall   remove snapshot
   xe template-uninstall   remove template
   xe vm-export    send .xva to mountpoint (NFS etc)
