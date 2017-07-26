@@ -1,1 +1,31 @@
 # xenserver-tools
+
+vm-backup-xva.py
+
+Is a semi-interactive script that iterates through all running VMs in a Xenserver pool and creates an .xva export to a mountpoint.
+
+The variables at the top of the script are there for you to populate with target info.
+
+The script will look at your iscsi lvm data stores and ask you which one to use for temporary VM storage during the backup.
+
+Tested and seems to work on Xenserver 6.5, 7.0 and 7.2 versions. 
+
+If this thing nukes your production Xenserver pool, and/or ruins every VM you have, that's your fault for running random code you found on the internet.
+
+How it works :
+
+python calling subprocess.Popen shell commands :
+xe sr-list    Get list of storage repos
+xe vm-list    Get list of VMs
+for each vm
+  xe vm-snapshot    Take a snapshot
+  xe snapshot-copy  Make snapshot into template
+  xe vm-install     Make template into temp VM
+  xe vif-list       List all NICs on temp VM
+  for each NIC
+    xe vif-destroy
+  xe vm-param-set   Remove host affinity from temp VM
+  xe snapshot-uninstall   remove snapshot
+  xe template-uninstall   remove template
+  xe vm-export    send .xva to mountpoint (NFS etc)
+  xe vm-uninstall   remove temp VM
