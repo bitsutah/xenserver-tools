@@ -19,10 +19,10 @@ xe sr-list    Get list of storage repos
 xe vm-list    Get list of VMs
 for each vm
   xe vm-snapshot    Take a snapshot
-  xe snapshot-copy  Make snapshot into template
-  xe vm-install     Make template into temp VM
-  xe vif-list       List all NICs on temp VM
-  for each NIC
+	xe snapshot-copy  Make snapshot into template
+	xe vm-install     Make template into temp VM
+	xe vif-list       List all NICs on temp VM
+	for each NIC
     xe vif-destroy
   xe vm-param-set   Remove host affinity from temp VM
   xe snapshot-uninstall   remove snapshot
